@@ -1,3 +1,10 @@
+app.get('/:shortId', async (req, res, next) => {
+    const url = await URL.findOneAndUpdate({
+        shortId: req.params.shortId
+    }, { $inc: { clicks: 1 }})
+    res.redirect(url.longUrl)
+})
+
 app.post('/short', async (req, res, next) => {
     const url = new URL({
         longUrl: req.body.url,
