@@ -1,3 +1,24 @@
+const express = require('express')
+const mongoose = require('mongoose')
+const nunjucks = require('nunjucks')
+require('dotenv').config()
+
+const BASE_URL = 'localhost:3000'
+
+const URL = require('./models/url')
+
+const app = express()
+const port = 3000
+
+app.use(express.urlencoded({
+    extended: true
+}))
+
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+})
+
 app.get('/', async (req, res, next) => {
     const urls = await URL.find()
     res.render('index.njk', {
