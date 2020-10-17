@@ -1,3 +1,10 @@
+app.get('/', async (req, res, next) => {
+    const urls = await URL.find()
+    res.render('index.njk', {
+        urls
+    })
+})
+
 app.get('/:shortId', async (req, res, next) => {
     const url = await URL.findOneAndUpdate({
         shortId: req.params.shortId
