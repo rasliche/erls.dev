@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const mongoose = require('mongoose')
 const nunjucks = require('nunjucks')
@@ -10,14 +11,16 @@ const Url = require('./models/Url')
 const app = express()
 const port = 3000
 
-app.use(express.urlencoded({
-    extended: true
-}))
-
 nunjucks.configure('views', {
     autoescape: true,
     express: app
 })
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(express.urlencoded({
+    extended: true
+}))
 
 app.get('/', async (req, res, next) => {
     const urls = await Url.find()
