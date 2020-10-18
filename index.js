@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const BASE_URL = 'localhost:3000'
 
-const URL = require('./models/url')
+const Url = require('./models/Url')
 
 const app = express()
 const port = 3000
@@ -20,21 +20,21 @@ nunjucks.configure('views', {
 })
 
 app.get('/', async (req, res, next) => {
-    const urls = await URL.find()
+    const urls = await Url.find()
     res.render('index.njk', {
         urls
     })
 })
 
 app.get('/:shortId', async (req, res, next) => {
-    const url = await URL.findOneAndUpdate({
+    const url = await Url.findOneAndUpdate({
         shortId: req.params.shortId
     }, { $inc: { clicks: 1 }})
     res.redirect(url.longUrl)
 })
 
 app.post('/short', async (req, res, next) => {
-    const url = new URL({
+    const url = new Url({
         longUrl: req.body.url,
     })
     await url.save()
