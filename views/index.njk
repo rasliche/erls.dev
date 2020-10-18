@@ -4,16 +4,15 @@
         <title>erls</title>
     </head>
     <body>
-        <p>Hello World</p>
         <form method="POST" action="/short">
-            <label>URL: <input id="url" name="url" type="text"></label>
+            <label>URL: <input id="url" name="url" type="url" required></label>
             <button type="submit">Submit</button>
         </form>
         <div>
         {% for url in urls %}
             <div>
                 <p>{{ url }}</p>
-                <a href="localhost/{{url.longUrl}}">{{ url.shortId }}</a>
+                <a href="{{url.longUrl}}">{{ url.shortId }}</a>
             </div>
         {% endfor %}
         </div>
