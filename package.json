@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "paint": "docker build -t rasliche/erls.dev .",
+    "send": "docker push rasliche/erls.dev"
   },
   "author": "",
   "license": "ISC",
