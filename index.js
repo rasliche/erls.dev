@@ -30,14 +30,18 @@ app.get('/:shortId', async (req, res, next) => {
     const url = await URL.findOneAndUpdate({
         shortId: req.params.shortId
     }, { $inc: { clicks: 1 }})
+    if (!url) return res.status(404)
     res.redirect(url.longUrl)
 })
 
 app.post('/short', async (req, res, next) => {
-    const url = new URL({
-        longUrl: req.body.url,
-    })
-    await url.save()
+    let url = await ShortURL.findOne({ shortId: req.body.url })
+    if (!url) {
+        url = new ShortURL({
+            longUrl: req.body.url,
+        })
+        await url.save()
+    }
     res.redirect('/')
 })
 
