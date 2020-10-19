@@ -30,7 +30,9 @@ app.get('/:shortId', async (req, res, next) => {
     const url = await ShortURL.findOneAndUpdate({
         shortId: req.params.shortId
     }, { $inc: { clicks: 1 }})
+
     if (!url) return res.status(404)
+    
     res.redirect(url.longUrl)
 })
 
